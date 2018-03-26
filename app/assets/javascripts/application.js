@@ -14,6 +14,7 @@
 //= require bootstrap-sprockets
 
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
 //= require turbolinks
 
 //= require js/flot/jquery.flot.js
