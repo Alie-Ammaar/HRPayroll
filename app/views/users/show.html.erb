@@ -53,7 +53,7 @@
                   <!-- end of image cropping -->
                   <div id="crop-avatar">
                     <!-- Current avatar -->
-                    <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+                    <%= image_tag @user.passport_avatar.url%>
 
                     <!-- Cropping modal -->
                     <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
@@ -126,8 +126,7 @@
                 <h3><%= @user.full_name%></h3>
 
                 <ul class="list-unstyled user_data">
-                  <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
-                  </li>
+
 
                   <li>
                     <i class="fa fa-briefcase user-profile-icon"></i> <%= @user.job_title%>
@@ -136,6 +135,10 @@
                   <li class="m-top-xs">
                     <i class="fa fa-external-link user-profile-icon"></i>
                     <a href="#" target="_blank"><%= @user.email%></a>
+                  </li>
+
+                  <li><i class="fa fa-map-marker user-profile-icon"></i>
+                    <%= @user.city%>
                   </li>
                 </ul>
 
@@ -177,7 +180,7 @@
 
                 <div class="profile_title">
                   <div class="col-md-6">
-                    <h2>User Activity Report</h2>
+                    <h2>PaySlip</h2>
                   </div>
                   <div class="col-md-6">
                     <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
@@ -194,9 +197,9 @@
                   <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Personal Information</a>
                     </li>
-                    <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Projects Worked on</a>
+                    <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Hours Worked</a>
                     </li>
-                    <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a>
+                    <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Timetable updates</a>
                     </li>
                   </ul>
                   <div id="myTabContent" class="tab-content">
@@ -236,23 +239,23 @@
                         <li>
                           <div class="message_wrapper">
                             <h4 class="heading">Postal Code</h4>
-                            <blockquote class="message"><%= @user.city%></blockquote>
+                            <blockquote class="message"><%= @user.postal_code%></blockquote>
                             <br />
                           </div>
                         </li>
 
                         <li>
                           <div class="message_wrapper">
-                            <h4 class="heading"></h4>
-                            <blockquote class="message"><%= @user.city%></blockquote>
+                            <h4 class="heading">Mobile Number</h4>
+                            <blockquote class="message"><%= @user.mobile_number%></blockquote>
                             <br />
                           </div>
                         </li>
 
                         <li>
                           <div class="message_wrapper">
-                            <h4 class="heading">City</h4>
-                            <blockquote class="message"><%= @user.city%></blockquote>
+                            <h4 class="heading">Home Number</h4>
+                            <blockquote class="message"><%= @user.home_number%></blockquote>
                             <br />
                           </div>
                         </li>
@@ -265,61 +268,7 @@
 
                       <!-- start user projects -->
                       <table class="data table table-striped no-margin">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Project Name</th>
-                            <th>Client Company</th>
-                            <th class="hidden-phone">Hours Spent</th>
-                            <th>Contribution</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>New Company Takeover Review</td>
-                            <td>Deveint Inc</td>
-                            <td class="hidden-phone">18</td>
-                            <td class="vertical-align-mid">
-                              <div class="progress">
-                                <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>New Partner Contracts Consultanci</td>
-                            <td>Deveint Inc</td>
-                            <td class="hidden-phone">13</td>
-                            <td class="vertical-align-mid">
-                              <div class="progress">
-                                <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Partners and Inverstors report</td>
-                            <td>Deveint Inc</td>
-                            <td class="hidden-phone">30</td>
-                            <td class="vertical-align-mid">
-                              <div class="progress">
-                                <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>New Company Takeover Review</td>
-                            <td>Deveint Inc</td>
-                            <td class="hidden-phone">28</td>
-                            <td class="vertical-align-mid">
-                              <div class="progress">
-                                <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
+                        
                       </table>
                       <!-- end user projects -->
 
@@ -346,33 +295,6 @@
   <div class="clearfix"></div>
   <div id="notif-group" class="tabbed_notifications"></div>
 </div>
-
-<script src="js/bootstrap.min.js"></script>
-
-<!-- bootstrap progress js -->
-<script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-<!-- icheck -->
-<script src="js/icheck/icheck.min.js"></script>
-
-<script src="js/custom.js"></script>
-
-<!-- image cropping -->
-<script src="js/cropping/cropper.min.js"></script>
-<script src="js/cropping/main.js"></script>
-
-<!-- daterangepicker -->
-<script type="text/javascript" src="js/moment/moment.min.js"></script>
-<script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-
-<!-- chart js -->
-<script src="js/chartjs/chart.min.js"></script>
-
-<!-- moris js -->
-<script src="js/moris/raphael-min.js"></script>
-<script src="js/moris/morris.min.js"></script>
-
-<!-- pace -->
-<script src="js/pace/pace.min.js"></script>
 
 <script>
   $(function() {

@@ -24,5 +24,21 @@ class ApplicationController < ActionController::Base
 			user_path(resource)
 		end
 	end
+
+	def authorized_manager_and_admin
+		if current_user.is_manager? || current_user.is_admin?
+		else
+			flash[:warning ] = "You are not authorized for this action"
+			redirect_to user_path(current_user)
+		end
+	end
+
+	def authorized_admin?
+		if current_user.is_admin?
+		else
+			flash[:warning ] = "You are not authorized for this action"
+			redirect_to user_path(current_user)
+		end
+	end
 	
 end

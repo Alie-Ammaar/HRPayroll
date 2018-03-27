@@ -1,0 +1,120 @@
+<%= form_for @user, html: {class: "form-horizontal form-label-left input_mask"} do |f| %>
+
+	<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+		<%= f.select :user_title,options_for_select([["Mr.","Mr"],["Mrs.", "Mrs"], ["Miss.", "Miss"], ["Ms.", "Ms"]]), { prompt: 'Select Title' }, class: "form-control has-feedback-left", required: true %>
+		<span class="fa fa-user-circle form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :first_name, class: "form-control has-feedback-left", placeholder: "First Name", required: true%>
+		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :middle_name, class: "form-control", placeholder: "Middle Name"%>
+		<span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :surname, class: "form-control has-feedback-left", placeholder: "Surname"%>
+		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.email_field :email, class: "form-control", placeholder: "Email"%>
+		<span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.select :gender,options_for_select([["Male.","Male"],["Female.", "Female"]]), { prompt: 'Gender' }, class: "form-control has-feedback-left", required: true %>
+		<span class="fa fa-male form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :dob, class: "form-control date-picker", required: true, placeholder: "Date Of Birth", readonly: true, required: true %>
+		<span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-12 col-sm-12 col-xs-12"	>
+			<%= f.text_field :address_1, class: "form-control", required: true, placeholder: "Address Line 1", required: true %>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<%= f.text_field :address_2, class: "form-control", required: true, placeholder: "Address Line 2" %>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<%= f.text_field :address_3, class: "form-control", required: true, placeholder: "Address Line 3" %>
+		</div>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :city, class: "form-control has-feedback-left", placeholder:"City", required: true %>
+		<span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :postal_code, class: "form-control", placeholder:"Postal Code", required: true %>
+		<span class="fa fa-compass form-control-feedback right" aria-hidden="true"></span>
+	</div>
+
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :mobile_number, class: "form-control has-feedback-left", placeholder:"Mobile No.", required: true %>
+		<span class="fa fa-mobile form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :home_number, class: "form-control", placeholder:"Home No", required: true %>
+		<span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+		<%= f.select :role_id, options_for_select([["Admin","Admin"],["Manager", "Manager"], ["Employee", "Employee"]]), { prompt: 'Select User Role' }, class: "form-control has-feedback-left", required: true, :include_blank => false %>
+		<span class="fa fa-user-circle form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-12 col-sm-12 col-xs-12"	>
+			<%= f.text_field :job_title, class: "form-control", required: true, placeholder: "Job Title", required: true %>
+		</div>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.text_field :ni_number, class: "form-control has-feedback-left", placeholder:"NI Number", required: true %>
+		<span class="fa fa-shield form-control-feedback left" aria-hidden="true"></span>
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+		<%= f.file_field :passport_avatar, class: "form-control", placeholder:"Passport Iamge" %>
+		<span class="fa fa-paperclip form-control-feedback right" aria-hidden="true"></span>
+	</div>
+
+
+
+	<div class="form-group">
+		<label class="control-label col-md-3 col-sm-3 col-xs-12">Password:</label>
+		<div class="col-md-9 col-sm-9 col-xs-12">
+			<%= f.password_field :password, class: "form-control", placeholder:"Password", required: true %>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-3 col-sm-3 col-xs-12">Confirmation:</label>
+		<div class="col-md-9 col-sm-9 col-xs-12">
+			<%= f.password_field :password_confirmation, class: "form-control", placeholder:"Confirm Password", required: true %>
+		</div>
+	</div>
+	
+	<div class="ln_solid"></div>
+	<div class="form-group">
+		<div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-4">
+			<%= f.submit class: "btn btn-success" %>
+		</div>
+	</div>
+<%end%>

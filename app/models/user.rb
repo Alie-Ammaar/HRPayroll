@@ -1,36 +1,36 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+	# Include default devise modules. Others available are:
+	# :confirmable, :lockable, :timeoutable and :omniauthable
+	devise :database_authenticatable,
+				 :recoverable, :rememberable, :trackable, :validatable
+	mount_uploader :passport_avatar, PassportAvatarUploader
+	enum role_id: [:Admin , :Manager , :Employee ]
+	enum gender: [:Male , :Female ]
+	enum user_title: [:Mr , :Miss, :Mrs , :Ms ]
 
-  enum role_id: [:Admin , :Manager , :Employee ]
-  enum gender: [:Male , :Female ]
-  enum user_title: [:Mr , :Miss, :Mrs , :Ms ]
+	def is_admin?
 
-  def is_admin?
-  
-  	role_id == "Admin"
-  
-  end
+		role_id == "Admin"
 
-  def is_manager?
-  
-  	role_id == "Manager"
-  
-  end
-  
-  def is_employee?
-  	
-  	role_id == "Employee"
-  
-  end
+	end
 
-  def full_name
-  	"#{titleize_string(user_title)} #{titleize_string(first_name)} #{titleize_string(middle_name)} #{titleize_string(surname)} "
-  end
+	def is_manager?
 
-  def titleize_string(data)
-  	data.present? ? data.titleize : ""
-  end
+		role_id == "Manager"
+
+	end
+
+	def is_employee?
+		
+		role_id == "Employee"
+
+	end
+
+	def full_name
+		"#{titleize_string(user_title)} #{titleize_string(first_name)} #{titleize_string(middle_name)} #{titleize_string(surname)} "
+	end
+
+	def titleize_string(data)
+		data.present? ? data.titleize : ""
+	end
 end
