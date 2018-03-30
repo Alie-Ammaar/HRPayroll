@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  per_hour: 1.5
+  amount: 1.5
+  user_id: 
+
+two:
+  per_hour: 1.5
+  amount: 1.5
+  user_id: 

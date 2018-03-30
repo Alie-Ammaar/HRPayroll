@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
 	before_action :authorized_manager_and_admin, only: [:index]
-	before_action :authorized_admin?, only: [:update, :edit, :new, :create]
+	before_action :authorized_admin?, only: [:update, :edit, :new, :create, :destroy]
 	before_action :set_user, only: [:update, :destroy, :show ,:edit ] 
 	def index
 		@users = User.all
 	end
 
 	def show
-
 		
+		@log_activity = @user.log_activities.find_current_month_log_activity.present? ? @user.log_activities.find_current_month_log_activity.last : @user.log_activities.new
 	end
 
 	def new
@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		@user.date_joined = DateTime.now.utc
 		if @user.save
+			UserMailer.new_user_creation_email(@user).deliver
 			redirect_to user_path(@user)
 		else
 			render 'new'
@@ -30,22 +31,28 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		byebug
 		if params[:user][:password].blank?
 			if @user.update_without_password(user_params)
-				redirect_to user_path(@user)
+				UserMailer.new_user_creation_email(@user).deliver
+				redirect_to user_path(@user.id)
 			else
 				render 'edit'
 			end
 		else
+			
 			if @user.update(user_params)
-				redirect_to user_path(@user)
+				UserMailer.new_user_creation_email(@user).deliver
+				redirect_to user_path(@user.id)
 			else
 				render 'edit'
 			end
 		end
 	end
 
+	def destroy
+		@user.update_attributes(is_active: false, date_left: DateTime.now)
+		redirect_to users_path
+	end
 
 	private
 	def set_user

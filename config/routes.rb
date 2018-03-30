@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
 
   }
-  resources :users
+  resources :users,:log_activities
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

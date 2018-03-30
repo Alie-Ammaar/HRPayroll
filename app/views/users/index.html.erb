@@ -46,6 +46,7 @@
           <p class="text-muted font-13 m-b-30">
             All users of payroll management system.
           </p>
+          <%= link_to "New User", new_user_path , role: "button", class: "btn btn-primary pull-right"  %>
           <table id="datatable-buttons" class="table table-striped table-bordered">
             <thead>
               <tr>
@@ -55,6 +56,7 @@
                 <th>Role</th>
                 <th>Joining Date</th>
                 <th>Left Date</th>
+                <th>Last Updated</th>
                 <th>Last Signed</th>
                 <th>Action</th>
               </tr>
@@ -70,6 +72,7 @@
                   <td><%=user.role_id%></td>
                   <td><%=user.date_joined%></td>
                   <td><%=user.date_left.present? ? user.date_left : "N/A"%></td>
+                  <td><%=user.updated_at.strftime("%m/%d/%Y %I:%M%p")%></td>
                   <td><%=user.last_signed_in.present? ? user.last_signed_in.localtime.strftime("%m/%d/%Y %I:%M%p") : "N/A" %></td>
                   <th>
                     <%if current_user.is_admin? || current_user.is_manager?%>

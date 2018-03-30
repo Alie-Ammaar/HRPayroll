@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem "font-awesome-rails"
 gem 'carrierwave', '~> 1.0'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "mini_magick"
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -1,4 +1,4 @@
-<div class="main_container">
+4<div class="main_container">
 
   <!-- page content -->
   <div class="right_col" role="main">
@@ -30,15 +30,6 @@
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a>
-                    </li>
-                    <li><a href="#">Settings 2</a>
-                    </li>
-                  </ul>
-                </li>
                 <li><a class="close-link"><i class="fa fa-close"></i></a>
                 </li>
               </ul>
@@ -53,7 +44,7 @@
                   <!-- end of image cropping -->
                   <div id="crop-avatar">
                     <!-- Current avatar -->
-                    <%= image_tag @user.passport_avatar.url%>
+                    <%= image_tag @user.passport_avatar.thumb.url%>
 
                     <!-- Cropping modal -->
                     <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
@@ -123,7 +114,7 @@
                   <!-- end of image cropping -->
 
                 </div>
-                <h3><%= @user.full_name%></h3>
+                <h3><%= @user.full_name%> </h3>
 
                 <ul class="list-unstyled user_data">
 
@@ -141,8 +132,11 @@
                     <%= @user.city%>
                   </li>
                 </ul>
-
-                <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                <%if current_user.is_admin?%>
+                      <%= link_to edit_user_path(@user), title:"Edit", class: "btn btn-success" do %>
+                        <i class="fa fa-edit m-right-xs"></i>Edit Profile
+                      <% end %>
+                    <%end%>
                 <br />
 
                 <!-- start skills -->
@@ -179,18 +173,62 @@
               <div class="col-md-9 col-sm-9 col-xs-12">
 
                 <div class="profile_title">
-                  <div class="col-md-6">
-                    <h2>PaySlip</h2>
+                  <div class="col-md-12">
+                    <h2><%=@user.full_name%></h2>
+                    <div class="col-md-6  invoice-col">
+                      <p class="lead"><i class="fa fa-globe"></i> Payslip</p>
+                      From
+                        <address>
+                                        <strong>Payroll, Inc.</strong>
+                                        <br>Email:<%=@user.email%>
+                                        <br>NIN : <%=@user.ni_number%>
+                                        <br>Phone: <%=@user.mobile_number%>
+                                        <br>Address : <%=@user.address_1%>
+                                    </address>
+                      
+                    </div>
+
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+                      <i class="glyphicon glyphicon-calendar fa fa-envelope"></i>
+                      <i class="glyphicon glyphicon-calendar fa fa-print"></i>
+
+                    </div>
+
+                    <div class="col-md-12">
+                      <p class="lead"><%=Time.now%></p>
+                      <div class="table-responsive">
+                        <table class="table">
+                          <tbody>
+                            <tr>
+                              <th style="width:50%">Hour log:</th>
+                              <td><%=@log_activity.hours_worked%></td>
+                            </tr>
+                            <tr>
+                              <th>Per hour:</th>
+                              <td>$<%=@user.per_hour%></td>
+                            </tr>
+                            <tr>
+                              <th>Gross Pay:</th>
+                              <td>$<%=@log_activity.amount%></td>
+                            </tr>
+                            <tr>
+                              <th>Tax ded. :</th>
+                              <td>$265.24</td>
+                            </tr>
+                            <tr>
+                              <th>Total:</th>
+                              <td>$265.24</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <!-- start of user-activity-graph -->
-                <div id="graph_bar" style="width:100%; height:280px;"></div>
+                
                 <!-- end of user-activity-graph -->
 
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -267,15 +305,22 @@
                     <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
                       <!-- start user projects -->
-                      <table class="data table table-striped no-margin">
-                        
-                      </table>
+                        <%= form_for @log_activity, html: {class: "form-inline"} do |f|%>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                          <%= f.number_field :hours_worked, class: "form-control has-feedback-left", required: true, placeholder: "Put Your Worked Hours" %>
+                          <span class="fa fa-clock-o form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <%= f.hidden_field :user_id, value: @log_activity.user_id%>
+                            
+                        <%=f.submit class: "btn btn-default"%>
+
+                        <%end%>
                       <!-- end user projects -->
 
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                      <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                        photo booth letterpress, commodo enim craft beer mlkshk </p>
+                      <p style="text-align: center;">Timetable update goes here. </p>
                     </div>
                   </div>
                 </div>

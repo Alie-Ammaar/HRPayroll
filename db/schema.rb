@@ -11,24 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327064228) do
+ActiveRecord::Schema.define(version: 20180330003552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "log_activities", force: :cascade do |t|
+    t.float    "per_hour"
+    t.float    "amount"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.float    "hours_worked"
+    t.float    "bonus"
+  end
+
+  add_index "log_activities", ["user_id"], name: "index_log_activities_on_user_id", using: :btree
+
+  create_table "payroll_settings", force: :cascade do |t|
+    t.float    "tax"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "user_title"
     t.string   "first_name"
     t.string   "middle_name"
@@ -49,9 +67,13 @@ ActiveRecord::Schema.define(version: 20180327064228) do
     t.datetime "date_left"
     t.string   "passport_avatar"
     t.string   "job_title"
+    t.float    "per_hour"
+    t.float    "hour_log"
+    t.boolean  "is_active",              default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "log_activities", "users"
 end
