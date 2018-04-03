@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%= @user.full_name %></h1>
+    <%if @log_activity.present? %>
+      <p>
+        Your <%=@log_activity.created_at.strftime("%B")%> Month's Payslip details are below
+      </p>
+      <p>
+        Hour log: <%=@log_activity.hours_worked.present? ? @log_activity.hours_worked : 0.0 %>
+      </p>
+      <p>
+        Per hour: $<%=@user.per_hour.present? ? @user.per_hour : 0.0%>
+      </p>
+      <p>
+        Gross Pay:  $<%=@log_activity.amount.present? ? @log_activity.amount : 0.0%>
+      </p>
+      <p>
+        Tax deduction: $265.24
+      </p>
+      <p>
+        Total:  $265.24
+      </p>
+    <%else%>
+      <p>
+        you haven't entered any logs yet
+      </p>
+    <%end%>
+  </body>
+</html>

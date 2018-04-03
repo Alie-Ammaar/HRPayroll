@@ -1,7 +1,7 @@
 class PlainpageController < ApplicationController
 
   def index
-    flash[:success ] = "Success Flash Message: Welcome to Payroll"
+    # flash[:success ] = "Success Flash Message: Welcome to Payroll"
     #other alternatives are
     # flash[:warn ] = "Israel don't quite like warnings"
     #flash[:danger ] = "Naomi let the dog out!"

@@ -54,6 +54,14 @@ class UsersController < ApplicationController
 		redirect_to users_path
 	end
 
+	def send_user_salary_slip
+		@user = User.find(params[:user_id])
+		@log_activity = @user.log_activities.last
+		UserMailer.user_salary_slip_email(@user, @log_activity).deliver
+		redirect_to user_path(@user)
+
+	end
+
 	private
 	def set_user
 		@user = User.find(params[:id])

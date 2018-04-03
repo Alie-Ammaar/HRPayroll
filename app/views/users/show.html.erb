@@ -191,13 +191,15 @@
                   </div>
                   <div class="col-md-12">
                     <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
-                      <i class="glyphicon glyphicon-calendar fa fa-envelope"></i>
+                      <%= link_to user_send_user_salary_slip_path(user_id: @user.id), title:"Send Email" do%>
+                        <i class="glyphicon glyphicon-calendar fa fa-envelope"></i>
+                      <%end%>
                       <i class="glyphicon glyphicon-calendar fa fa-print"></i>
 
                     </div>
 
                     <div class="col-md-12">
-                      <p class="lead"><%=Time.now%></p>
+                      <p class="lead"><%=Time.now.strftime("%B")%></p>
                       <div class="table-responsive">
                         <table class="table">
                           <tbody>

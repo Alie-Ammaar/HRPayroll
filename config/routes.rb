@@ -3,7 +3,10 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
 
   }
-  resources :users,:log_activities
+  resources :users do 
+    get "send_user_salary_slip/:id", to: "users#send_user_salary_slip", as: :send_user_salary_slip
+  end
+  resources :log_activities
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
